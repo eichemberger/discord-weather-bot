@@ -31,6 +31,11 @@ async function fetchForecast(location) {
       const temperatureMinF = day.day.mintemp_f;
       const temperatureMaxF = day.day.maxtemp_f;
 
+      const { sunrise } = day.astro;
+      const { sunset } = day.astro;
+      const { moonrise } = day.astro;
+      const { moonset } = day.astro;
+
       const condition = day.day.condition.text;
 
       return {
@@ -40,6 +45,10 @@ async function fetchForecast(location) {
         temperatureMinF,
         temperatureMaxF,
         condition,
+        sunrise,
+        sunset,
+        moonrise,
+        moonset,
       };
     });
 
