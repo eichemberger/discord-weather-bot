@@ -18,7 +18,7 @@ async function fetchForecast(location) {
       responseType: 'json',
     });
 
-    const { city } = response.data.location;
+    const city = response.data.location.name;
     const { country } = response.data.location;
     const locationName = `${city}, ${country}`;
 
