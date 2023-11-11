@@ -1,4 +1,9 @@
-const { SlashCommandBuilder } = require('discord.js');
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+} = require('discord.js');
+
+const { fetchForecast } = require('../requests/forecast');
 
 const data = new SlashCommandBuilder()
   .setName('forecast')
@@ -29,10 +34,51 @@ const data = new SlashCommandBuilder()
   });
 
 async function execute(interaction) {
-  const location = interaction.options.getString('location');
-  const unit = interaction.options.getString('unit') || 'metric';
+  try {
+    await interaction.deferReply();
 
-  await interaction.reply('The weather is great!');
+    const location = interaction.options.getString('location');
+    const unit = interaction.options.getString('unit') || 'metric';
+    const isMetric = unit === 'metric';
+
+    const { forecast, locationName } = await fetchForecast(location);
+
+    const embed = new EmbedBuilder()
+      .setColor('#0099ff')
+      .setTitle(`Weather forecast for ${locationName}`)
+      .setDescription(`Using the units system: ${unit}`)
+      .setTimestamp()
+      .setFooter({
+        text: 'Powered by weatherapi.com',
+      });
+
+    forecast.forEach((day) => {
+      const {
+        date,
+        temperatureMaxC,
+        temperatureMinC,
+        temperatureMinF,
+        temperatureMaxF,
+        avgTemp,
+        condition,
+        icon,
+      } = day;
+
+      const temperatureMax = isMetric ? temperatureMaxC : temperatureMaxF;
+      const temperatureMin = isMetric ? temperatureMinC : temperatureMinF;
+
+      embed.addFields({
+        name: date,
+        value: `🌡️ ${temperatureMin}° - ${temperatureMax}°\n🌤️ ${condition}`,
+      });
+    });
+
+    await interaction.editReply({
+      embeds: [embed],
+    });
+  } catch (error) {
+    await interaction.editReply('Failed to fetch forecast :(');
+  }
 }
 
 module.exports = {

@@ -53,8 +53,7 @@ async function fetchForecast(location) {
     };
   } catch (error) {
     logger.error(error);
-
-    return null;
+    throw new Error('Failed to fetch forecast :(');
   }
 }
 
