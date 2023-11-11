@@ -11,4 +11,4 @@ async function execute(interaction) {
 module.exports = {
   data,
   execute,
-}
+};

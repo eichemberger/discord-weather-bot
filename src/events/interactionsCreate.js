@@ -1,4 +1,4 @@
-const logger = require("../utils/logger");
+const logger = require('../utils/logger');
 
 async function interactionCreateHandler(interaction) {
   if (!interaction.isChatInputCommand()) {
@@ -33,4 +33,4 @@ async function interactionCreateHandler(interaction) {
 
 module.exports = {
   interactionCreateHandler,
-}
+};
