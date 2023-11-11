@@ -59,9 +59,7 @@ async function execute(interaction) {
         temperatureMinC,
         temperatureMinF,
         temperatureMaxF,
-        avgTemp,
         condition,
-        icon,
       } = day;
 
       const temperatureMax = isMetric ? temperatureMaxC : temperatureMaxF;

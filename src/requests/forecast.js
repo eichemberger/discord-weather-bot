@@ -31,9 +31,7 @@ async function fetchForecast(location) {
       const temperatureMinF = day.day.mintemp_f;
       const temperatureMaxF = day.day.maxtemp_f;
 
-      const avgTemp = day.day.avgtemp_c;
       const condition = day.day.condition.text;
-      const { icon } = day.day.condition;
 
       return {
         date,
