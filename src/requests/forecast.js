@@ -39,9 +39,7 @@ async function fetchForecast(location) {
         temperatureMinC,
         temperatureMinF,
         temperatureMaxF,
-        avgTemp,
         condition,
-        icon,
       };
     });
 
