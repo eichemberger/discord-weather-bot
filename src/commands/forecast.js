@@ -9,19 +9,21 @@ const data = new SlashCommandBuilder()
       .setRequired(true);
 
     return option;
-  }).addStringOption((option) => {
+  })
+  .addStringOption((option) => {
     option.setName('unit')
       .setDescription('The unit to use for the temperature: eithcer Celsius or Fahrenheit')
       .setRequired(false)
       .addChoices(
-          {
+        {
           name: 'Metric',
           value: 'metric',
         },
         {
           name: 'Imperial',
           value: 'imperial',
-        });
+        },
+      );
 
     return option;
   });
