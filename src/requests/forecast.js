@@ -18,12 +18,12 @@ async function fetchForecast(location) {
       responseType: 'json',
     });
 
-    const city = response.data.location.name;
-    const country = response.data.location.country;
+    const { city } = response.data.location;
+    const { country } = response.data.location;
     const locationName = `${city}, ${country}`;
 
     const forecast = response.data.forecast.forecastday.map((day) => {
-      const date = day.date;
+      const { date } = day;
 
       const temperatureMaxC = day.day.maxtemp_c;
       const temperatureMinC = day.day.mintemp_c;
@@ -33,7 +33,7 @@ async function fetchForecast(location) {
 
       const avgTemp = day.day.avgtemp_c;
       const condition = day.day.condition.text;
-      const icon = day.day.condition.icon;
+      const { icon } = day.day.condition;
 
       return {
         date,
@@ -53,6 +53,8 @@ async function fetchForecast(location) {
     };
   } catch (error) {
     logger.error(error);
+
+    return null;
   }
 }
 
